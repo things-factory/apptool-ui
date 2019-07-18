@@ -9,7 +9,6 @@ import { TOOL_POSITION } from '@things-factory/layout-base'
 class AppToolbar extends connect(store)(LitElement) {
   static get properties() {
     return {
-      _context: Object,
       _tools: Array,
       _page: String,
       _defaultPage: String
@@ -118,13 +117,7 @@ class AppToolbar extends connect(store)(LitElement) {
       )}
 
       <div center>
-        <slot name="center">
-          ${this._context
-            ? html`
-                <label>${this._context.title}</label>
-              `
-            : html``}
-        </slot>
+        <slot name="center"> </slot>
         ${centerTools.map(
           tool =>
             html`
@@ -155,8 +148,7 @@ class AppToolbar extends connect(store)(LitElement) {
     this._page = state.route.page
     this._defaultPage = state.route.defaultRoutePage
 
-    this._tools = state.layout.tools
-    this._context = state.route.context
+    this._tools = state.apptool.tools
   }
 
   _isHome() {
