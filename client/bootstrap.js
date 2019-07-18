@@ -1,3 +1,5 @@
+import { html } from 'lit-html'
+
 import { store } from '@things-factory/shell'
 import { APPEND_HEADERBAR } from '@things-factory/layout-base'
 
