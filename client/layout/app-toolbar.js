@@ -28,6 +28,9 @@ class AppToolbar extends connect(store)(LitElement) {
 
         [center] {
           flex: 1;
+          flex-wrap: nowrap;
+
+          display: flex;
           justify-content: center;
           align-items: center;
         }
@@ -42,12 +45,7 @@ class AppToolbar extends connect(store)(LitElement) {
           padding: 0 10px 0 10px;
         }
 
-        ::slotted(*) {
-          align-items: center;
-        }
-
-        :host(.vline),
-        ::slotted(.vline) {
+        :host(.vline) {
           display: block;
           flex: none;
           border-left: 1px solid rgba(255, 255, 255, 0.07);
@@ -57,20 +55,10 @@ class AppToolbar extends connect(store)(LitElement) {
           margin: 0 4px;
         }
 
-        :host(label),
-        ::slotted(label) {
+        :host(label) {
           margin-right: 5px;
           color: #fff;
           font-size: 20px;
-        }
-
-        slot {
-          display: flex;
-          flex-wrap: nowrap;
-          height: 100%;
-          align-items: center;
-          overflow: hidden;
-          padding: 0;
         }
 
         span.space {
@@ -92,7 +80,6 @@ class AppToolbar extends connect(store)(LitElement) {
     return html`
       ${this._isHome()
         ? html`
-            <slot name="front-end"> </slot>
             ${frontEndTools.map(
               tool =>
                 html`
@@ -107,8 +94,6 @@ class AppToolbar extends connect(store)(LitElement) {
         : html`
             <mwc-icon @click=${e => navigate(this._defaultPage)}>home</mwc-icon>
           `}
-
-      <slot name="front"> </slot>
       ${frontTools.map(
         tool =>
           html`
@@ -117,7 +102,6 @@ class AppToolbar extends connect(store)(LitElement) {
       )}
 
       <div center>
-        <slot name="center"> </slot>
         ${centerTools.map(
           tool =>
             html`
@@ -126,15 +110,12 @@ class AppToolbar extends connect(store)(LitElement) {
         )}
       </div>
 
-      <slot name="rear"> </slot>
       ${rearTools.map(
         tool =>
           html`
             ${tool.template}
           `
       )}
-
-      <slot name="rear-end"> </slot>
       ${rearEndTools.map(
         tool =>
           html`
