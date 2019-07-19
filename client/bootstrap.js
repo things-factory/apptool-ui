@@ -8,7 +8,9 @@ export default function bootstrap() {
 
   store.dispatch({
     type: APPEND_HEADERBAR,
+    name: 'apptoolbar',
     headerbar: {
+      show: true,
       template: html`
         <app-toolbar></app-toolbar>
       `
