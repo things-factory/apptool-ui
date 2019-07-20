@@ -1,19 +1,18 @@
 import { html } from 'lit-html'
 
-import { store } from '@things-factory/shell'
-import { APPEND_HEADERBAR } from '@things-factory/layout-base'
+import { appendViewpart, VIEWPART_POSITION } from '@things-factory/layout-base'
 
 export default function bootstrap() {
   import('./layout/app-toolbar')
 
-  store.dispatch({
-    type: APPEND_HEADERBAR,
+  appendViewpart({
     name: 'apptoolbar',
-    headerbar: {
+    viewpart: {
       show: true,
       template: html`
         <app-toolbar></app-toolbar>
       `
-    }
+    },
+    position: VIEWPART_POSITION.HEADERBAR
   })
 }
