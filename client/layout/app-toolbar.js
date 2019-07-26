@@ -24,6 +24,8 @@ class AppToolbar extends connect(store)(LitElement) {
           height: var(--header-bar-height, 45px);
           padding: 0;
           color: var(--header-bar-color);
+
+          text-transform: capitalize;
         }
 
         [center] {
