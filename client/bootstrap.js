@@ -1,10 +1,9 @@
 import { html } from 'lit-html'
 
 import { appendViewpart, VIEWPART_POSITION } from '@things-factory/layout-base'
+import './layout/app-toolbar'
 
 export default function bootstrap() {
-  import('./layout/app-toolbar')
-
   appendViewpart({
     name: 'apptoolbar',
     viewpart: {
