@@ -133,7 +133,7 @@ class AppToolbar extends connect(store)(LitElement) {
   }
 
   _isHome() {
-    if (this._page == '') {
+    if (location.pathname == '/') {
       return true
     }
 
