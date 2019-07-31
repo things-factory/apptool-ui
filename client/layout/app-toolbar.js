@@ -10,8 +10,7 @@ class AppToolbar extends connect(store)(LitElement) {
   static get properties() {
     return {
       _tools: Array,
-      _page: String,
-      _defaultPage: String
+      _page: String
     }
   }
 
@@ -94,7 +93,7 @@ class AppToolbar extends connect(store)(LitElement) {
             <mwc-icon @click=${e => history.back()}>arrow_back</mwc-icon>
           `
         : html`
-            <mwc-icon @click=${e => navigate(this._defaultPage)}>home</mwc-icon>
+            <mwc-icon @click=${e => navigate('/')}>home</mwc-icon>
           `}
       ${frontTools.map(
         tool =>
@@ -129,13 +128,12 @@ class AppToolbar extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this._page = state.route.page
-    this._defaultPage = state.route.defaultRoutePage
 
     this._tools = state.apptool.tools
   }
 
   _isHome() {
-    if (this._page == this._defaultPage) {
+    if (this._page == '') {
       return true
     }
 
