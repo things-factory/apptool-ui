@@ -10,7 +10,7 @@ class AppToolbar extends connect(store)(LitElement) {
   static get properties() {
     return {
       _tools: Array,
-      _page: String
+      _route: Object
     }
   }
 
@@ -79,7 +79,7 @@ class AppToolbar extends connect(store)(LitElement) {
     var rearEndTools = tools.filter(tool => tool.position == TOOL_POSITION.REAR_END)
 
     return html`
-      ${isMobileDevice() && !isHome()
+      ${isMobileDevice() && !this._isHome()
         ? html`
             <mwc-icon @click=${e => history.back()}>arrow_back</mwc-icon>
           `
@@ -124,7 +124,8 @@ class AppToolbar extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this._page = state.route.page
+    /* page의 변화를 감지하기 위해서 route의 변화를 체크한다. */
+    this._route = state.route
 
     this._tools = state.apptool.tools
   }
