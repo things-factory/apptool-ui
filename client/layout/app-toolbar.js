@@ -79,22 +79,19 @@ class AppToolbar extends connect(store)(LitElement) {
     var rearEndTools = tools.filter(tool => tool.position == TOOL_POSITION.REAR_END)
 
     return html`
-      ${this._isHome()
-        ? html`
-            ${frontEndTools.map(
-              tool =>
-                html`
-                  ${tool.template}
-                `
-            )}
-          `
-        : isMobileDevice()
+      ${isMobileDevice() && !isHome()
         ? html`
             <mwc-icon @click=${e => history.back()}>arrow_back</mwc-icon>
           `
         : html`
             <mwc-icon @click=${e => navigate('/')}>home</mwc-icon>
           `}
+      ${frontEndTools.map(
+        tool =>
+          html`
+            ${tool.template}
+          `
+      )}
       ${frontTools.map(
         tool =>
           html`
