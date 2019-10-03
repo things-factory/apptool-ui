@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit-element'
 import '@material/mwc-icon'
 
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store, navigate, isMobileDevice } from '@things-factory/shell'
+import { store, navigate } from '@things-factory/shell'
 import { TOOL_POSITION } from '@things-factory/layout-base'
 
 class AppToolbar extends connect(store)(LitElement) {
@@ -78,8 +78,12 @@ class AppToolbar extends connect(store)(LitElement) {
     var rearTools = tools.filter(tool => tool.position == TOOL_POSITION.REAR)
     var rearEndTools = tools.filter(tool => tool.position == TOOL_POSITION.REAR_END)
 
+    /* 현재 OVERLAY가 있으면, 뒤로가기 버튼이 보이고, 아니면, HOME 버튼이 보인다. */
+    var state = history.state
+    var overlay = (state || {}).overlay
+
     return html`
-      ${isMobileDevice() && !this._isHome()
+      ${overlay
         ? html`
             <mwc-icon @click=${e => history.back()}>arrow_back</mwc-icon>
           `
