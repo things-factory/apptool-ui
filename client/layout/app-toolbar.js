@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit-element'
 import '@material/mwc-icon'
 
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store, navigate } from '@things-factory/shell'
+import { store, navigate, getPathInfo } from '@things-factory/shell'
 import { TOOL_POSITION } from '@things-factory/layout-base'
 
 class AppToolbar extends connect(store)(LitElement) {
@@ -88,7 +88,7 @@ class AppToolbar extends connect(store)(LitElement) {
             <mwc-icon @click=${e => history.back()}>arrow_back</mwc-icon>
           `
         : html`
-            <mwc-icon @click=${e => navigate('/')}>home</mwc-icon>
+            <mwc-icon @click=${e => this.navigateToHome()}>home</mwc-icon>
           `}
       ${frontEndTools.map(
         tool =>
@@ -134,8 +134,18 @@ class AppToolbar extends connect(store)(LitElement) {
     this._tools = state.apptool.tools
   }
 
+  navigateToHome() {
+    var base = document.querySelector('base')
+    if (base) {
+      navigate(base.getAttribute('href'))
+    } else {
+      navigate('/')
+    }
+  }
+
   _isHome() {
-    if (location.pathname == '/') {
+    var { contextPath, path } = getPathInfo(location.pathname)
+    if (path == '/') {
       return true
     }
 
