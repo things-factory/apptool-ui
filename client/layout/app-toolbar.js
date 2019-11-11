@@ -87,21 +87,16 @@ class AppToolbar extends connect(store)(LitElement) {
         ? html`
             <mwc-icon @click=${e => history.back()}>arrow_back</mwc-icon>
           `
-        : html`
+        : frontEndTools.length == 0
+        ? html`
             <mwc-icon @click=${e => this.navigateToHome()}>home</mwc-icon>
-          `}
-      ${frontEndTools.map(
-        tool =>
-          html`
-            ${tool.template}
           `
-      )}
-      ${frontTools.map(
-        tool =>
-          html`
-            ${tool.template}
-          `
-      )}
+        : frontEndTools.map(
+            tool =>
+              html`
+                ${tool.template}
+              `
+          )}
 
       <div center>
         ${centerTools.map(
@@ -141,15 +136,6 @@ class AppToolbar extends connect(store)(LitElement) {
     } else {
       navigate('/')
     }
-  }
-
-  _isHome() {
-    var { contextPath, path } = getPathInfo(location.pathname)
-    if (path == '/') {
-      return true
-    }
-
-    return false
   }
 }
 
