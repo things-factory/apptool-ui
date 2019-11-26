@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit-element'
 import '@material/mwc-icon'
 
 import { connect } from 'pwa-helpers/connect-mixin.js'
-import { store, navigate, getPathInfo } from '@things-factory/shell'
+import { store, navigate } from '@things-factory/shell'
 import { TOOL_POSITION } from '@things-factory/layout-base'
 
 class AppToolbar extends connect(store)(LitElement) {
@@ -97,6 +97,12 @@ class AppToolbar extends connect(store)(LitElement) {
                 ${tool.template}
               `
           )}
+      ${frontTools.map(
+        tool =>
+          html`
+            ${tool.template}
+          `
+      )}
 
       <div center>
         ${centerTools.map(
