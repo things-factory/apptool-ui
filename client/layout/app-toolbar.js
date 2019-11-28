@@ -19,12 +19,17 @@ class AppToolbar extends connect(store)(LitElement) {
       css`
         :host {
           display: flex;
-          justify-content: space-between;
           height: var(--header-bar-height, 45px);
-          padding: 0;
           color: var(--header-bar-color);
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 5px;
 
           text-transform: capitalize;
+        }
+
+        :host > * {
+          padding: 0px 10px;
         }
 
         [center] {
@@ -39,11 +44,6 @@ class AppToolbar extends connect(store)(LitElement) {
         [center] > * {
           justify-content: center;
           align-items: center;
-        }
-
-        :host(*) {
-          align-items: center;
-          padding: 0 10px 0 10px;
         }
 
         :host(.vline) {
