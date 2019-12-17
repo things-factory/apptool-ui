@@ -29,7 +29,7 @@ class AppToolbar extends connect(store)(LitElement) {
         }
 
         :host > * {
-          padding: 0px 10px;
+          padding: var(--header-bar-item-padding);
         }
 
         [center] {
