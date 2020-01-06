@@ -19,12 +19,17 @@ class AppToolbar extends connect(store)(LitElement) {
       css`
         :host {
           display: flex;
-          justify-content: space-between;
           height: var(--header-bar-height, 45px);
-          padding: 0;
           color: var(--header-bar-color);
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 5px;
 
           text-transform: capitalize;
+        }
+
+        :host > * {
+          padding: var(--header-bar-item-padding);
         }
 
         [center] {
@@ -39,11 +44,6 @@ class AppToolbar extends connect(store)(LitElement) {
         [center] > * {
           justify-content: center;
           align-items: center;
-        }
-
-        :host(*) {
-          align-items: center;
-          padding: 0 10px 0 10px;
         }
 
         :host(.vline) {
@@ -87,15 +87,16 @@ class AppToolbar extends connect(store)(LitElement) {
         ? html`
             <mwc-icon @click=${e => history.back()}>arrow_back</mwc-icon>
           `
-        : html`
-            <mwc-icon @click=${e => navigate('/')}>home</mwc-icon>
-          `}
-      ${frontEndTools.map(
-        tool =>
-          html`
-            ${tool.template}
+        : frontEndTools.length == 0
+        ? html`
+            <mwc-icon @click=${e => this.navigateToHome()}>home</mwc-icon>
           `
-      )}
+        : frontEndTools.map(
+            tool =>
+              html`
+                ${tool.template}
+              `
+          )}
       ${frontTools.map(
         tool =>
           html`
@@ -134,12 +135,13 @@ class AppToolbar extends connect(store)(LitElement) {
     this._tools = state.apptool.tools
   }
 
-  _isHome() {
-    if (location.pathname == '/') {
-      return true
+  navigateToHome() {
+    var base = document.querySelector('base')
+    if (base) {
+      navigate(base.getAttribute('href'))
+    } else {
+      navigate('/')
     }
-
-    return false
   }
 }
 
